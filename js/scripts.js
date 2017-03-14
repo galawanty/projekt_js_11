@@ -39,6 +39,10 @@ function setGameElements() {
         newGameElem.style.display = 'none';
         pickElem.style.display = 'block';
         resultsElem.style.display = 'block';
+        playerPickElem.innerText = 'Wybór gracza';
+        computerPickElem.innerText = 'Wybór komputera';
+        playerResultElem.innerText = 'Wynik gracza';
+        computerResultElem.innerText = 'Wynik komputera';
       break;
     case 'ended':
         newGameBtn.innerText = 'Jeszcze raz';
@@ -65,10 +69,9 @@ function newGame() {
 
 }
 
-
-
 function getComputerPick() {
     var possiblePicks = ['rock', 'paper', 'scissors'];
+    
     return possiblePicks[Math.floor(Math.random()*3)];
 }
 
@@ -79,9 +82,7 @@ function playerPick(playerPick) {
     computerPickElem.innerHTML = computerPick;
 }
 
-function checkRoundAndGameWinner(playerPick, computerPick) {
-  
-  checkGamewinner();
+function checkRoundAndGameWinner(playerPick, computerPick) {  
   playerResultElem.innerHTML = computerResultElem.innerHTML = '';
   
 
@@ -107,8 +108,7 @@ function checkRoundAndGameWinner(playerPick, computerPick) {
     }
     
     setGamePoints();
-    
-
+    checkGamewinner();
 }
 
 function setDraw() {
@@ -116,15 +116,15 @@ function setDraw() {
 }
 
 function checkGamewinner() {
-if (player.score === 10) {
-    alert('Koniec gry! Zwycięża ' + player.name);
-    endGame();
-}
+    if (player.score === 10) {
+        alert('Koniec gry! Zwycięża ' + player.name);
+        endGame();
+    }
 
-if (computer.score === 10) {
-    alert('Koniec gry! Zwycięża komputer.');
-    endGame();
-}
+    if (computer.score === 10) {
+        alert('Koniec gry! Zwycięża komputer.');
+        endGame();
+    }
 }
 
 function playerPick(playerPick) {
@@ -149,20 +149,13 @@ function resetGame() {
 function newNextGame() {
     player.score = computer.score = 0;
     gameState = 'started';
-    setGameElements();
-
-function checkRoundWinner() {
-    playerNameElem.innerHTML = player.name;
-    setGamePoints();
-}
+    newGame();
 }
 
 function endGame() {
     if (confirm("Nowa gra?")) {
         newNextGame();
-    }
-
-    else {
+    } else {
         resetGame();
     }
 }
